@@ -11,7 +11,7 @@ export default function Garden({ habits, onComplete, onSelect, getHabitState }) 
           <div key={habit.id} style={{ textAlign: 'center' }}>
             <div 
               className={`plant-container ${state.isWilting ? 'wilted' : ''}`}
-              onClick={() => onSelect(habit)}
+              onClick={() => onSelect(habit.id)}
               style={{ cursor: 'pointer' }}
             >
               <PlantSVG type={habit.plantType} stage={state.stage} isWilting={state.isWilting} />
