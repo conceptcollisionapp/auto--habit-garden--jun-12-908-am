@@ -40,7 +40,7 @@ export default function App() {
     } catch { return [] }
   })
   const [showModal, setShowModal] = useState(false)
-  const [selectedHabit, setSelectedHabit] = useState(null)
+  const [selectedId, setSelectedId] = useState(null)
 
   useEffect(() => {
     localStorage.setItem('habitGarden', JSON.stringify(habits))
@@ -73,6 +73,7 @@ export default function App() {
     }))
   }
 
+  const selectedHabit = habits.find(h => h.id === selectedId) || null
   const health = getGardenHealth(habits)
 
   return (
@@ -88,11 +89,11 @@ export default function App() {
         </div>
       </header>
 
-      <Garden habits={habits} onComplete={completeHabit} onSelect={setSelectedHabit} getHabitState={getHabitState} />
+      <Garden habits={habits} onComplete={completeHabit} onSelect={setSelectedId} getHabitState={getHabitState} />
       <button onClick={() => setShowModal(true)} className="glass glow" style={{ marginTop: '40px', padding: '16px 32px', fontSize: '16px', fontWeight: 600, cursor: 'pointer', border: 'none', color: '#e0e7ff' }}>+ Add New Habit</button>
 
       {showModal && <AddHabitModal onAdd={addHabit} onClose={() => setShowModal(false)} plantTypes={PLANT_TYPES} />}
-      {selectedHabit && <HabitDetail habit={selectedHabit} onClose={() => setSelectedHabit(null)} onComplete={completeHabit} getHabitState={getHabitState} />}
+      {selectedHabit && <HabitDetail habit={selectedHabit} onClose={() => setSelectedId(null)} onComplete={completeHabit} getHabitState={getHabitState} getToday={getToday} />}
     </div>
   )
 }
